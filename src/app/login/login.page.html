@@ -1,0 +1,42 @@
+
+<ion-content class="login"> 
+  <!--login-->
+  <form (submit)="onLogin()" autocomplete="off">  
+      <ion-card class="login-card">
+          <img class="logo" src="../../assets/imgs/logo_prceu.png">
+          <ion-card-header>
+            <ion-card-title>Bem vindo ao PRCEU Reversa de Salas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Para reservar uma sala basta fazer Login</p>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">
+                            Login
+                        </ion-label>
+                        <ion-input [(ngModel)]="login" type="text" name="name"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <!--password-->
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">
+                          Senha
+                        </ion-label>
+                        <ion-input [(ngModel)]="pass" type="password" name="password"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <!--button-->
+            <ion-row>
+                <ion-col>
+                  <ion-button type="submit" expand="block">Entrar</ion-button>
+                </ion-col>
+            </ion-row>             
+          </ion-card-content>
+        </ion-card>
+  </form>
+</ion-content>

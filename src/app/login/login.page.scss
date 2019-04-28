@@ -1,0 +1,34 @@
+.item {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.item.item-block .item-inner {
+border-bottom: 0;
+}
+.login-card{
+    margin: 10% 30%;
+    background-color:white;
+}
+ion-content {
+    --ion-background-color: #c8c8c8;
+}
+ion-item{
+    --ion-background-color: white;
+}
+.logo {
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 2em;
+}    
+.login-btn {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 4.4rem;
+    background-color: black;
+}
+  
