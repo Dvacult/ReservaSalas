@@ -6,4 +6,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  
+      <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
+          <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
+          <div class="card-title">{{item.attributes.name}}</div>
+          <ion-card-header>
+              <ion-card-subtitle>Capacidade para <b>{{item.attributes.capacity}}</b> pessoas</ion-card-subtitle>
+              <ion-card-title>{{item.attributes.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{item.attributes.description}}</p>
+          </ion-card-content>
+          <ion-item lines="full">
+              <ion-icon name="calendar" slot="start"></ion-icon>  
+              <ion-label>
+                  De <b>{{item.attributes.startRev}}</b> até <b>{{item.attributes.endRev}}</b>
+              </ion-label>
+            </ion-item>
+          <ion-button expand="full" color="danger" (click)="removeReserve(item)">
+              <ion-icon name="checkmark"></ion-icon>
+              Remover Reserva
+          </ion-button>
+      </ion-card>
+</ion-content>

@@ -23,8 +23,8 @@ export class Tab1Page {
 
   onChange($event) {
     console.log($event);
-    this.checkIn = $event.from.format("ddd, DD MMM");
-    this.checkOut = $event.to.format("ddd, DD MMM");
+    this.checkIn = $event.from.format("DD/MM/YYYY");
+    this.checkOut = $event.to.format("DD/MM/YYYY");
     this.search = false;
   }
   resultRow($event) {

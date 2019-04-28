@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Salas
+        Salas
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,10 +13,9 @@
       </ion-label>
   </ion-item-divider>
   <ion-item>
-      <span class="check-in">{{checkIn}}</span>
-      <span class="separete">/</span>
-      <span class="check-out">{{checkOut}}</span>
-  </ion-item>  
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      De {{checkIn}} até {{checkOut}}
+  </ion-item> 
   <ion-calendar [(ngModel)]="dateRange"
       [options]="optionsRange"
       (change)="onChange($event)"

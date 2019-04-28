@@ -12,7 +12,7 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-card *ngFor="let item of room, let i = index" class="result-card">
+    <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
         <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
         <div class="card-title">{{item.attributes.name}}</div>
         <ion-card-header>
@@ -26,5 +26,5 @@
             <ion-icon name="checkmark"></ion-icon>
             Reservar
         </ion-button>
-      </ion-card>
+    </ion-card>
 </ion-content>

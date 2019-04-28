@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {Parse} from 'parse';
 import {ParseConfig} from '../../app/parse.config';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-result',
@@ -9,8 +11,8 @@ import {ParseConfig} from '../../app/parse.config';
 })
 export class ResultPage implements OnInit {
   
-  room: any[] = [];
-  constructor() {
+  rooms: any[] = [];
+  constructor(private storage: Storage, private router: Router) {
     this.getRoom();
   }
 
@@ -26,11 +28,13 @@ export class ResultPage implements OnInit {
     query.equalTo("status", "Open");
     query.find().then((results) => {
       console.log(results);
-      this.room = results;
+      this.rooms = results;
     }, err => {
       console.log('Error logging in', err);
     });
+
   }
+  
   doRefresh(event) {
     console.log('Begin async operation');
 
@@ -41,6 +45,32 @@ export class ResultPage implements OnInit {
   }
 
   setReserve(room){
-    debugger;
+
+    this.storage.get('user').then((user) => {
+      console.log('User ', user);
+      
+      Parse.initialize(ParseConfig.appId, ParseConfig.javascriptKey, ParseConfig.masterKey);
+      Parse.serverURL = ParseConfig.serverURL;      
+
+      room.set("userRev", this.getUser(user.id));
+      room.set("status", "Reserve");
+      console.log(room);
+      room.save().then((roomSave) => {
+        console.log(roomSave);
+        this.router.navigateByUrl('/tabs');
+      }, err => {
+        console.log('Error logging in', err);
+      });
+
+    });
+  }
+
+  getUser(userId){
+      
+    var user = Parse.Object.extend("_User");
+    var user = new user();
+    user.id = userId;
+    
+    return user;  
   }
 }

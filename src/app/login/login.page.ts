@@ -3,6 +3,7 @@ import { NavController, ToastController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Parse } from 'parse';
 import { ParseConfig } from '../../app/parse.config';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
+    private storage: Storage,
     private router: Router
   ) { }
 
@@ -36,7 +38,7 @@ export class LoginPage implements OnInit {
     Parse.serverURL = ParseConfig.serverURL;
     Parse.User.logIn(this.login,this.pass).then((user) => {
         console.log('Logged in successfully', user);
-        debugger;    
+        this.storage.set('user', user);
         this.router.navigateByUrl('/tabs');
 
       }, err => {
