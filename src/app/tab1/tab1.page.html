@@ -6,6 +6,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>       
+  <ion-item-divider>
+      <ion-label>
+        Data da reserva
+      </ion-label>
+  </ion-item-divider>
+  <ion-item>
+      <span class="check-in">{{checkIn}}</span>
+      <span class="separete">/</span>
+      <span class="check-out">{{checkOut}}</span>
+  </ion-item>  
+  <ion-calendar [(ngModel)]="dateRange"
+      [options]="optionsRange"
+      (change)="onChange($event)"
+      [type]="type"
+      [format]="'DD-MM-YYYY'">
+  </ion-calendar>
+  <ion-item-divider>
+      <ion-label>
+       Capacidade da sala
+      </ion-label>
+    </ion-item-divider>
+  <ion-item>
+    <ion-range dualKnobs="true" min="20" max="200" step="20" snaps="true" pin="true">
+        <ion-icon size="small" slot="start" name="contacts"></ion-icon>
+        <ion-icon slot="end" name="contacts"></ion-icon>
+    </ion-range>
+  </ion-item>
+  <ion-button expand="full" [disabled]="search" (click)="resultRow($event)">
+      <ion-icon name="search"></ion-icon>Buscar
+  </ion-button>
+  
 </ion-content>
