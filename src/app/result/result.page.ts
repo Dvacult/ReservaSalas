@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {Parse} from 'parse';
 import {ParseConfig} from '../../app/parse.config';
 import { Storage } from '@ionic/storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-result',
@@ -12,8 +13,13 @@ import { Storage } from '@ionic/storage';
 export class ResultPage implements OnInit {
   
   rooms: any[] = [];
-  constructor(private storage: Storage, private router: Router) {
+  checkIn: String = "Inicio";
+  checkOut: String = "Final";
+  
+  constructor(private storage: Storage, private router: Router, private route: ActivatedRoute) {
     this.getRoom();
+    this.checkIn = this.route.snapshot.paramMap.get("start");
+    this.checkOut = this.route.snapshot.paramMap.get("end");
   }
 
   ngOnInit() {    
@@ -54,6 +60,8 @@ export class ResultPage implements OnInit {
 
       room.set("userRev", this.getUser(user.id));
       room.set("status", "Reserve");
+      //room.set("startRev", this.checkIn);
+      //room.set("endRev", this.checkOut);
       console.log(room);
       room.save().then((roomSave) => {
         console.log(roomSave);

@@ -11,6 +11,13 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    
+    <ion-card class="dates-card">
+        <ion-item>
+            <ion-icon name="calendar" slot="start"></ion-icon>
+            De {{checkIn}} até {{checkOut}}
+        </ion-item> 
+    </ion-card>
 
     <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
         <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>

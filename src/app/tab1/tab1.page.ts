@@ -11,7 +11,6 @@ export class Tab1Page {
   checkIn: String = "Inicio";
   checkOut: String = "Final";
   search: boolean = true;
-  dateRange: { from: string; to: string; };
   
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   optionsRange: CalendarComponentOptions = {
@@ -28,6 +27,7 @@ export class Tab1Page {
     this.search = false;
   }
   resultRow($event) {
-    this.router.navigateByUrl('/result');
+    debugger;
+    this.router.navigate(['/result', {start: this.checkIn, end: this.checkOut}]);
   }
 }

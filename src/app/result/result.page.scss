@@ -1,3 +1,14 @@
+ion-content {
+    --ion-background-color: #c8c8c8;
+}
+ion-item{
+    --ion-background-color: white;
+}
+.dates-card{
+    margin: 5% 15% 0% 15%;
+    background-color:white;
+}
+
 .result-card{
     margin: 5% 15%;
     background-color:white;
@@ -12,6 +23,4 @@
     color: #fff;
     background-color: rgba(0, 0, 0, 0.60);
     text-align: center;
-}
-.img-room{
 }
