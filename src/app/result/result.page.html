@@ -1,9 +1,15 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Resultado da busca por salas</ion-title>
+    <ion-buttons slot="end">
+        <ion-button fill="outline">
+            <ion-icon slot="start" name="list"></ion-icon>
+            {{rooms.length}} resultados          
+        </ion-button>      
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,19 +17,34 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+
+    <ion-card class="dates-card" *ngIf="dates.length == 0">
+        <ion-card-header>
+          <ion-card-title>Nenhuma sala encontrada</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <p>Nenhuma sala disponivel para as datas {{dates}}.</p>
+          <p>Por favor, procure em outras datas ou entre em contato com o PRCEU</p>
+        </ion-card-content>
+  </ion-card>
     
-    <ion-card class="dates-card">
-        <ion-item>
-            <ion-icon name="calendar" slot="start"></ion-icon>
-            De {{checkIn}} até {{checkOut}}
-        </ion-item> 
+    <ion-card class="dates-card" *ngIf="dates.length > 0">
+      <ion-item *ngIf="dates.length > 1">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          Datas selecionadas {{dates}}
+      </ion-item>
+      <ion-item *ngIf="dates.length == 1">
+        <ion-icon name="calendar" slot="start"></ion-icon>
+        Data selecionada {{dates}}
+      </ion-item> 
     </ion-card>
 
     <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
         <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
         <div class="card-title">{{item.attributes.name}}</div>
         <ion-card-header>
-            <ion-card-subtitle>Capacidade para <b>{{item.attributes.capacity}}</b> pessoas</ion-card-subtitle>
+            <ion-card-subtitle>Área <b>{{item.attributes.area}}</b> com dimenções <b>{{item.attributes.dimension}}</b></ion-card-subtitle>
             <ion-card-title>{{item.attributes.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>

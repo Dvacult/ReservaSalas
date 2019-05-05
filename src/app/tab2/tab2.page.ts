@@ -24,8 +24,10 @@ export class Tab2Page {
       Parse.initialize(ParseConfig.appId, ParseConfig.javascriptKey, ParseConfig.masterKey);
       Parse.serverURL = ParseConfig.serverURL;
 
-      var query = new Parse.Query("Rooms");
+      var query = new Parse.Query("Reverse");
       query.equalTo("userRev", this.getUser(user.id));
+      query.include("roomRev");
+      query.include("userRev");
       query.find().then((results) => {
         console.log(results);
         this.rooms = results;

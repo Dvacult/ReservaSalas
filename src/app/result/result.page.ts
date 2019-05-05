@@ -4,6 +4,7 @@ import {Parse} from 'parse';
 import {ParseConfig} from '../../app/parse.config';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -13,13 +14,18 @@ import { ActivatedRoute } from '@angular/router';
 export class ResultPage implements OnInit {
   
   rooms: any[] = [];
-  checkIn: String = "Inicio";
-  checkOut: String = "Final";
+  dates: any[] = [];
+  intervals: any[] = [];
+
+  loading: any;
   
-  constructor(private storage: Storage, private router: Router, private route: ActivatedRoute) {
+  constructor(private storage: Storage, private router: Router, private route: ActivatedRoute, public loadingController: LoadingController) {
+    
+    this.presentLoading();
+    this.dates = this.route.snapshot.paramMap.get("dates").split(",");
+    this.intervals = this.route.snapshot.paramMap.get("intervals").split(",");
+
     this.getRoom();
-    this.checkIn = this.route.snapshot.paramMap.get("start");
-    this.checkOut = this.route.snapshot.paramMap.get("end");
   }
 
   ngOnInit() {    
@@ -31,16 +37,46 @@ export class ResultPage implements OnInit {
     Parse.serverURL = ParseConfig.serverURL;
 
     var query = new Parse.Query("Rooms");
-    query.equalTo("status", "Open");
+    query.include("reverseId");
     query.find().then((results) => {
-      console.log(results);
+      console.log(results); 
+      let range = Array();  
+      debugger;
+      for(var i = 0; i < results.length; ++i)
+      { 
+        if(results[i].attributes.reverseId != undefined)
+        {
+          let dates = results[i].attributes.reverseId.attributes.datesRev;          
+          if(dates != undefined )
+          {
+            for(var j = 0; j < dates.length; j++)
+            {
+              let dateRev = dates[j];
+              for(var w = 0; w < this.dates.length; w++)
+                if(dateRev == this.dates[w])
+                  range.push(results[i]);                
+            }                
+          } 
+        }
+      }
+      debugger;
+      results = this.showResult(results, range);
       this.rooms = results;
+      
     }, err => {
       console.log('Error logging in', err);
     });
 
   }
   
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando...',
+      duration: 2000
+    });
+    await loading.present();
+  }
+
   doRefresh(event) {
     console.log('Begin async operation');
 
@@ -57,17 +93,25 @@ export class ResultPage implements OnInit {
       
       Parse.initialize(ParseConfig.appId, ParseConfig.javascriptKey, ParseConfig.masterKey);
       Parse.serverURL = ParseConfig.serverURL;      
-
-      room.set("userRev", this.getUser(user.id));
-      room.set("status", "Reserve");
-      //room.set("startRev", this.checkIn);
-      //room.set("endRev", this.checkOut);
+      var Reverse = Parse.Object.extend("Reverse");
+      var rev = new Reverse();
+      rev.set("roomRev", this.getRoomParse(room));
+      rev.set("userRev", this.getUser(user.id));
+      rev.set("datesRev", this.dates);
+      rev.set("intervalsRev", this.intervals);
       console.log(room);
-      room.save().then((roomSave) => {
-        console.log(roomSave);
-        this.router.navigateByUrl('/tabs');
+      rev.save().then((revSave) => {
+        console.log(revSave);
+
+        room.set("reverseId", this.getReverseParse(revSave));
+        room.save().then((roomUpdate) => {
+          console.log(roomUpdate);
+          this.router.navigateByUrl('/tabs');
+        }, err => {
+          console.log('Error Room in', err);
+        });
       }, err => {
-        console.log('Error logging in', err);
+        console.log('Error Reverse in', err);
       });
 
     });
@@ -80,5 +124,44 @@ export class ResultPage implements OnInit {
     user.id = userId;
     
     return user;  
+  }
+
+  getRoomParse(room){      
+    var roomObj = Parse.Object.extend("Rooms");
+    roomObj = new roomObj();
+    roomObj.id = room.id;
+    
+    return roomObj;  
+  }
+
+  getReverseParse(reverse){      
+    var reverseObj = Parse.Object.extend("Reverse");
+    reverseObj = new reverseObj();
+    reverseObj.id = reverse.id;
+    
+    return reverseObj;  
+  }
+
+  showResult(results, range){
+    
+    let show = Array();
+    let intercetion = false;
+
+    for(var i = 0; i < results.length; i++)
+    {
+      for(var j = 0; j < range.length; j++)
+      {
+        if(results[i].id == range[j].id)
+          intercetion = true;
+      }
+
+      if(!intercetion)
+        show.push(results[i]);
+      else
+        intercetion = false;
+    }
+
+    return show;
+
   }
 }
