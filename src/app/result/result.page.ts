@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Parse} from 'parse';
-import {ParseConfig} from '../../app/parse.config';
+import { Parse } from 'parse';
+import { ParseConfig } from '../../app/parse.config';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
@@ -41,7 +41,7 @@ export class ResultPage implements OnInit {
     query.find().then((results) => {
       console.log(results); 
       let range = Array();  
-      debugger;
+
       for(var i = 0; i < results.length; ++i)
       { 
         if(results[i].attributes.reverseId != undefined)
@@ -59,7 +59,7 @@ export class ResultPage implements OnInit {
           } 
         }
       }
-      debugger;
+
       results = this.showResult(results, range);
       this.rooms = results;
       
@@ -106,6 +106,10 @@ export class ResultPage implements OnInit {
         room.set("reverseId", this.getReverseParse(revSave));
         room.save().then((roomUpdate) => {
           console.log(roomUpdate);
+
+          // Send Email
+          this.sendEmail();
+
           this.router.navigateByUrl('/tabs');
         }, err => {
           console.log('Error Room in', err);
@@ -162,6 +166,9 @@ export class ResultPage implements OnInit {
     }
 
     return show;
+  }
+
+  sendEmail(){
 
   }
 }

@@ -18,7 +18,7 @@ export class Tab1Page {
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   optionsRange: CalendarComponentOptions = {
     pickMode: 'multi',
-    disableWeeks: [0,6],
+    disableWeeks: [0],
     monthPickerFormat: ['JAN', 'FEB', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AUG', 'SET', 'OUT', 'NOV', 'DEZ'],
     weekdays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
   };
