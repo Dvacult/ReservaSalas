@@ -57,7 +57,6 @@ export class Tab1Page {
   }
 
   setAllDay($event){
-    debugger;
     if($event.detail.checked)
     {
       this.timesToggle = true;
