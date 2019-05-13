@@ -27,62 +27,50 @@
       <ion-row>
           <ion-col>
               <ion-item>
-                  <ion-toggle color="danger" [disabled]="allDayToggle" (ionChange)="setAllDay($event)" value="0"></ion-toggle>
-                  <ion-label>8:00 às 22:00</ion-label>    
-                </ion-item>
+                <ion-toggle color="danger" [disabled]="allDayToggle" (ionChange)="setAllDay($event)" value="0"></ion-toggle>
+                <ion-label>8:00 às 22:00</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="1"></ion-toggle>
-                  <ion-label>8:00 às 10:00</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="1"></ion-toggle>
+                <ion-label>8:00 às 10:00</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="2"></ion-toggle>
-                  <ion-label>10:30 às 12:30</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="2"></ion-toggle>
+                <ion-label>10:30 às 12:30</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="3"></ion-toggle>
-                  <ion-label>13:00 às 14:00</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="3"></ion-toggle>
+                <ion-label>13:00 às 14:00</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="4"></ion-toggle>
-                  <ion-label>14:30 às 16:30</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="4"></ion-toggle>
+                <ion-label>14:30 às 16:30</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="5"></ion-toggle>
-                  <ion-label>17:00 às 19:00</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="5"></ion-toggle>
+                <ion-label>17:00 às 19:00</ion-label>    
+              </ion-item>
           </ion-col>
           <ion-col>
               <ion-item>
-                  <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="6"></ion-toggle>
-                  <ion-label>19:30 às 21:30</ion-label>    
-                </ion-item>
+                <ion-toggle (ionChange)="setTime($event)" [disabled]="timesToggle" value="6"></ion-toggle>
+                <ion-label>19:30 às 21:30</ion-label>    
+              </ion-item>
           </ion-col>
       </ion-row>
   </ion-grid>
-  <!--   
-  <ion-item-divider>
-      <ion-label>
-       Dimensões da sala
-      </ion-label>
-    </ion-item-divider>
-  <ion-item>
-    <ion-range dualKnobs="true" min="16" max="109" step="20" snaps="true" pin="true">
-        <ion-icon size="small" slot="start" name="expand"></ion-icon>
-        <ion-icon slot="end" name="expand"></ion-icon>
-    </ion-range>
-  </ion-item>
-  -->
-  <ion-button expand="full" [disabled]="search" (click)="resultRow($event)">
+  
+  <ion-button expand="full" size="large" [disabled]="search" (click)="resultRow($event)">
       <ion-icon name="search"></ion-icon>
       Buscar
   </ion-button>

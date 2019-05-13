@@ -5,6 +5,7 @@ import { ParseConfig } from '../../app/parse.config';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -19,7 +20,12 @@ export class ResultPage implements OnInit {
 
   loading: any;
   
-  constructor(private storage: Storage, private router: Router, private route: ActivatedRoute, public loadingController: LoadingController) {
+  constructor(
+    private storage: Storage,
+    private router: Router,
+    private route: ActivatedRoute,
+    public loadingController: LoadingController,
+    public alertController: AlertController) {
     
     this.presentLoading();
     this.dates = this.route.snapshot.paramMap.get("dates").split(",");
@@ -37,16 +43,15 @@ export class ResultPage implements OnInit {
     Parse.serverURL = ParseConfig.serverURL;
 
     var query = new Parse.Query("Rooms");
-    query.include("reverseId");
     query.find().then((results) => {
       console.log(results); 
       let range = Array();  
 
       for(var i = 0; i < results.length; ++i)
       { 
-        if(results[i].attributes.reverseId != undefined)
+        if(results[i].attributes.datesRev != undefined)
         {
-          let dates = results[i].attributes.reverseId.attributes.datesRev;          
+          let dates = results[i].attributes.datesRev;          
           if(dates != undefined )
           {
             for(var j = 0; j < dates.length; j++)
@@ -103,13 +108,14 @@ export class ResultPage implements OnInit {
       rev.save().then((revSave) => {
         console.log(revSave);
 
-        room.set("reverseId", this.getReverseParse(revSave));
+        room.set("datesRev", this.dates);
+        room.set("intervalsRev", this.intervals);
         room.save().then((roomUpdate) => {
           console.log(roomUpdate);
 
           // Send Email
-          this.sendEmail();
-
+          //this.sendEmail();
+          this.presentAlert(room)
           this.router.navigateByUrl('/tabs');
         }, err => {
           console.log('Error Room in', err);
@@ -170,5 +176,40 @@ export class ResultPage implements OnInit {
 
   sendEmail(){
 
+  }
+  async presentAlert(room) {
+    const alert = await this.alertController.create({
+      header: 'Reversa da Sala',
+      message: 'Confirmada a reserva da sala: <p><strong>'+ room.attributes.name,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertConfirm(room) {
+    const alert = await this.alertController.create({
+      header: 'Reserva de sala!',
+      message: 'Confirma a reserva da sala: <p><strong>'+ room.attributes.name +'</strong></p><p>Em '+ this.dates +'</p>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Reserve',
+          cssClass: 'primary',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.setReserve(room);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

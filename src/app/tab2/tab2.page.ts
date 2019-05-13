@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {Parse} from 'parse';
-import {ParseConfig} from '../../app/parse.config';
+import { Parse } from 'parse';
+import { ParseConfig } from '../../app/parse.config';
 import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -12,10 +13,14 @@ export class Tab2Page {
   
   rooms: any[] = [];
   
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, public alertController: AlertController) {
     this.getMyReverves();
   }
   
+  ionViewDidLoad() {  
+    this.getMyReverves();  
+  }
+
   getMyReverves() {
 
     this.storage.get('user').then((user) => {
@@ -58,5 +63,31 @@ export class Tab2Page {
 
   removeReserve(reserve){
 
+  }
+
+  async presentAlertConfirm(reverve) {
+    const alert = await this.alertController.create({
+      header: 'Reserva de sala!',
+      message: 'Confirma a reserva da sala: <p><strong>'+ reverve.attributes.roomRev.attributes.name +'</strong></p><p>Em '+ reverve.attributes.datesRev +'</p>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Reserve',
+          cssClass: 'primary',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.removeReserve(reverve);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

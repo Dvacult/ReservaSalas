@@ -11,29 +11,40 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
   
-      <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
-          <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
-          <div class="card-title">{{item.attributes.name}}</div>
+      <ion-card class="dates-card" *ngIf="rooms.length == 0">
           <ion-card-header>
-              <ion-card-subtitle>Área <b>{{item.attributes.roomRev.attributes.area}}</b> com dimenções <b>{{item.attributes.roomRev.attributes.dimension}}</b></ion-card-subtitle>
-              <ion-card-title>{{item.attributes.roomRev.attributes.name}}</ion-card-title>
+            <ion-card-title>Nenhuma reverva encontrada</ion-card-title>
           </ion-card-header>
+        
           <ion-card-content>
-            <p>{{item.attributes.roomRev.attributes.description}}</p>
+            <p>Nenhuma reverva encontrada.</p>
+            <p>Por favor, procure em outras datas ou entre em contato com o PRCEU</p>
           </ion-card-content>
-          <ion-item lines="full">
-            <ion-item *ngIf="item.attributes.datesRev.length > 1">
-              <ion-icon name="calendar" slot="start"></ion-icon>
-              Datas selecionadas {{item.attributes.datesRev}}
-            </ion-item>
-            <ion-item *ngIf="item.attributes.datesRev.length == 1">
-              <ion-icon name="calendar" slot="start"></ion-icon>
-              Data selecionada {{item.attributes.datesRev}}
-            </ion-item> 
-            </ion-item>
-          <ion-button expand="full" color="danger" (click)="removeReserve(item)">
-              <ion-icon name="checkmark"></ion-icon>
-              Remover Reserva
-          </ion-button>
       </ion-card>
+  
+      <ion-item-divider *ngIf="rooms.length > 0">
+        <ion-label slot="start">
+            <h2>{{rooms.length}} resultados</h2>
+        </ion-label>
+      </ion-item-divider>
+      
+      <ion-list class="result-list" *ngIf="rooms.length > 0">
+          <ion-item-sliding *ngFor="let item of rooms, let i = index">
+          
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
+              </ion-thumbnail> 
+              <ion-label>           
+                  <h1>{{item.attributes.roomRev.attributes.name}}</h1>
+                  <h2>{{item.attributes.datesRev}}</h2>
+                  <p>
+                      Área <b>{{item.attributes.roomRev.attributes.area}}</b> com dimensões <b>{{item.attributes.roomRev.attributes.dimension}}</b>
+                  </p>
+              </ion-label>
+              <ion-button fill="outline" slot="end" color="danger" (click)="presentAlertConfirm(item)">Remover</ion-button>
+            </ion-item>
+            
+          </ion-item-sliding>
+    </ion-list>
 </ion-content>

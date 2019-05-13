@@ -4,12 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Resultado da busca por salas</ion-title>
-    <ion-buttons slot="end">
-        <ion-button fill="outline">
-            <ion-icon slot="start" name="list"></ion-icon>
-            {{rooms.length}} resultados          
-        </ion-button>      
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -27,32 +21,42 @@
           <p>Nenhuma sala disponivel para as datas {{dates}}.</p>
           <p>Por favor, procure em outras datas ou entre em contato com o PRCEU</p>
         </ion-card-content>
-  </ion-card>
+    </ion-card>
     
-    <ion-card class="dates-card" *ngIf="dates.length > 0">
-      <ion-item *ngIf="dates.length > 1">
-          <ion-icon name="calendar" slot="start"></ion-icon>
-          Datas selecionadas {{dates}}
-      </ion-item>
-      <ion-item *ngIf="dates.length == 1">
-        <ion-icon name="calendar" slot="start"></ion-icon>
-        Data selecionada {{dates}}
-      </ion-item> 
-    </ion-card>
+    <ion-list class="result-list" *ngIf="dates.length > 0">
+      <ion-item-divider *ngIf="dates.length > 1">
+        <ion-label>
+          <h2>Datas selecionadas {{dates}}</h2>
+        </ion-label>
+        <ion-label slot="end" class="text-result">
+            <h2>{{rooms.length}} resultados</h2>
+        </ion-label>
+      </ion-item-divider>
 
-    <ion-card *ngFor="let item of rooms, let i = index" class="result-card">
-        <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
-        <div class="card-title">{{item.attributes.name}}</div>
-        <ion-card-header>
-            <ion-card-subtitle>Área <b>{{item.attributes.area}}</b> com dimenções <b>{{item.attributes.dimension}}</b></ion-card-subtitle>
-            <ion-card-title>{{item.attributes.name}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{item.attributes.description}}</p>
-        </ion-card-content>
-        <ion-button expand="full" color="success" (click)="setReserve(item)">
-            <ion-icon name="checkmark"></ion-icon>
-            Reservar
-        </ion-button>
-    </ion-card>
+      <ion-item-divider *ngIf="dates.length == 1">
+        <ion-label slot="start">
+          <h2>Data selecionada {{dates}}</h2>
+        </ion-label>
+        <ion-label slot="end"  class="text-result">
+          <h2>{{rooms.length}} resultados</h2>
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="let item of rooms, let i = index">
+       
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
+          </ion-thumbnail> 
+          <ion-label>           
+              <h1>{{item.attributes.name}}</h1>
+              <p>
+                  Área <b>{{item.attributes.area}}</b> com dimensões <b>{{item.attributes.dimension}}</b>
+              </p>
+          </ion-label>
+          <ion-button fill="solid" slot="end" color="success" (click)="presentAlertConfirm(item)">Reservar</ion-button>
+        </ion-item>
+        
+      </ion-item-sliding>
+    </ion-list>
 </ion-content>
