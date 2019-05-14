@@ -22,23 +22,25 @@ export class Tab1Page {
     monthPickerFormat: ['JAN', 'FEB', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AUG', 'SET', 'OUT', 'NOV', 'DEZ'],
     weekdays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
   };
-  constructor(private router: Router, public loadingController: LoadingController) { }
+  constructor(private router: Router, public loadingController: LoadingController) {
+
+  }
 
   onChange($event) {
+    
     console.log($event);
+    
     if($event.length > 0)
     {
       this.dates = new Array();
       for(let i = 0; i < $event.length; i++)
         this.dates.push($event[i].format("DD/MM/YYYY"));
       
-      this.search = false;
       this.timesToggle = false;
       this.allDayToggle = false;
     }
     else
     {
-      this.search = true;
       this.timesToggle = true;
       this.allDayToggle = true;
     }
@@ -57,28 +59,50 @@ export class Tab1Page {
   }
 
   setAllDay($event){
+    
     if($event.detail.checked)
     {
       this.timesToggle = true;
       this.intervals = new Array();
       this.intervals.push("0");
+      this.search = false;
     }        
     else
     {
       this.intervals = new Array();
       this.timesToggle = false;
+      this.search = true;
     }        
   }
 
   setTime($event){
-    debugger;
+
     if($event.detail.checked)
+    {
       this.intervals.push($event.detail.value);
+      this.search = false;
+    }      
     else
     {
       for(var i = 0; i < this.intervals.length; i++)
         if(this.intervals[i] == $event.detail.value)
-          this.intervals.splice(i,1);       
+          this.intervals.splice(i,1);
+      
+      if(this.intervals.length == 0)
+        this.search = true;
     }
+  }
+  clearSearch(){
+    this.search = true;
+    this.timesToggle = true;
+    this.allDayToggle = true;
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 }

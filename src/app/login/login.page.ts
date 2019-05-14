@@ -49,9 +49,8 @@ export class LoginPage implements OnInit {
     Parse.serverURL = ParseConfig.serverURL;
     Parse.User.logIn(this.login,this.pass).then((user) => {
         console.log('Logged in successfully', user);
-        
         this.storage.set('user', user);
-        this.storage.set('login', this.login);
+        this.storage.set('user_attr', user.attributes);
         this.router.navigateByUrl('/tabs');
 
       }, err => {

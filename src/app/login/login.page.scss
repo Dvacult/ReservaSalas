@@ -5,7 +5,7 @@
     border-radius: 5px;
 }
 .item.item-block .item-inner {
-border-bottom: 0;
+    border-bottom: 0;
 }
 .login-card{
     margin: 10% 30%;
@@ -31,4 +31,11 @@ ion-item{
     height: 4.4rem;
     background-color: black;
 }
+
+@media only screen and (max-width: 600px) {
+    .login-card{
+        margin: 25% 2%;
+        background-color:white;
+    }
+  }
   

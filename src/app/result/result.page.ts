@@ -108,8 +108,8 @@ export class ResultPage implements OnInit {
       rev.save().then((revSave) => {
         console.log(revSave);
 
-        room.set("datesRev", this.dates);
-        room.set("intervalsRev", this.intervals);
+        room.set("datesRev", this.getDatesRev(room));
+        room.set("intervalsRev", this.getIntervalsRev(room));
         room.save().then((roomUpdate) => {
           console.log(roomUpdate);
 
@@ -125,6 +125,22 @@ export class ResultPage implements OnInit {
       });
 
     });
+  }
+
+  getDatesRev(room){
+    let datesSave = room.attributes.datesRev;
+    if(datesSave == undefined)
+      datesSave = new Array();
+
+    return datesSave.concat(this.dates);
+  }
+
+  getIntervalsRev(room){
+    let intervalSave = room.attributes.intervalsRev;
+    if(intervalSave == undefined)
+      intervalSave = new Array();
+    
+    return intervalSave.concat(this.intervals);
   }
 
   getUser(userId){

@@ -17,8 +17,22 @@
                     </ion-label>
                 </ion-item-divider>
                 <ion-item>
-                    <ion-icon name="mail" slot="start"></ion-icon>
-                    prceu@usp.br
+                    <ion-label>
+                        <p>E-mail</p>
+                        <h2>{{email}}</h2>
+                      </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                      <p>Número USP</p>
+                      <h2>{{nUSP}}</h2>
+                    </ion-label>
+                </ion-item> 
+                <ion-item>
+                    <ion-label>
+                      <p>Setor</p>
+                      <h2>{{setor}}</h2>
+                    </ion-label>
                 </ion-item> 
                 
                 <ion-item-divider>
@@ -33,13 +47,9 @@
                     <ion-label>
                       {{login}}
                     </ion-label>
-                    <ion-button fill="outline" slot="end" (click)="editUser()">Editar</ion-button>
+                    <!-- <ion-button fill="outline" slot="end" (click)="editUser()">Editar</ion-button> -->
+                    <ion-button fill="outline" slot="end" (click)="logout()" color="danger">Logout</ion-button>
                   </ion-item>
-              
-                  <ion-item (click)="logout()" color="danger">
-                      <ion-icon name="log-out" slot="start"></ion-icon>
-                      Logout
-                  </ion-item> 
               </ion-list>
                       
         </ion-card-content>
