@@ -62,13 +62,21 @@ export class Tab2Page {
   }
 
   removeReserve(reserve){
+    Parse.initialize(ParseConfig.appId, ParseConfig.javascriptKey, ParseConfig.masterKey);
+    Parse.serverURL = ParseConfig.serverURL;
 
+    reserve.destroy().then((results) => {
+      console.log(results);
+      this.rooms = results;
+    }, err => {
+      console.log('Error logging in', err);
+    });
   }
 
   async presentAlertConfirm(reverve) {
     const alert = await this.alertController.create({
-      header: 'Reserva de sala!',
-      message: 'Confirma a reserva da sala: <p><strong>'+ reverve.attributes.roomRev.attributes.name +'</strong></p><p>Em '+ reverve.attributes.datesRev +'</p>',
+      header: 'Remover reserva!',
+      message: 'Confirma <b>removeção</b> da reverva: <p><strong>'+ reverve.attributes.roomRev.attributes.name +'</strong></p><p>Em '+ reverve.attributes.datesRev +'</p>',
       buttons: [
         {
           text: 'Cancelar',
@@ -78,7 +86,7 @@ export class Tab2Page {
             console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Reserve',
+          text: 'Remover',
           cssClass: 'primary',
           handler: () => {
             console.log('Confirm Okay');
