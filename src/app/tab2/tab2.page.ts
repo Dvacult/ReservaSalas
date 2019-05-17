@@ -65,12 +65,55 @@ export class Tab2Page {
     Parse.initialize(ParseConfig.appId, ParseConfig.javascriptKey, ParseConfig.masterKey);
     Parse.serverURL = ParseConfig.serverURL;
 
+    let room = reserve.attributes.roomRev;
+    let dates = reserve.attributes.datesRev;
+    let interval = reserve.attributes.intervalsRev;
+
     reserve.destroy().then((results) => {
       console.log(results);
+
+      room.set("datesRev", this.getDatesRev(room, dates));
+      room.set("intervalsRev", this.getIntervalsRev(room, interval));
+      room.save().then((roomUpdate) => {
+        console.log(roomUpdate);
+      }, err => {
+        console.log('Error Room in', err);
+      });
+
       this.rooms = results;
     }, err => {
       console.log('Error logging in', err);
     });
+  }
+
+  getDatesRev(room, dates){
+    let datesSave = room.attributes.datesRev;
+    if(datesSave != undefined)
+    {
+      for( var i = 0; i < datesSave.length; i++){
+        for(var j = 0; j < dates.length; j++){
+          if ( datesSave[i] == dates[j]) {
+            datesSave.splice(i, 1);
+          }
+        }
+      }
+    }
+    return datesSave;
+  }
+
+  getIntervalsRev(room, interval){
+    let intervalSave = room.attributes.intervalsRev;
+    if(intervalSave != undefined)
+    {
+      for( var i = 0; i < intervalSave.length; i++){
+        for(var j = 0; j < interval.length; j++){
+          if ( intervalSave[i] == interval[j]) {
+            intervalSave.splice(i, 1);
+          }
+        }
+      }
+    }
+    return intervalSave;
   }
 
   async presentAlertConfirm(reverve) {
