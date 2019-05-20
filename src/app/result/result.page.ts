@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ViewerRoomPage } from '../viewer-room/viewer-room.page';
 
 @Component({
   selector: 'app-result',
@@ -25,7 +27,8 @@ export class ResultPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public loadingController: LoadingController,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    public modalController: ModalController) {
     
     this.presentLoading();
     this.dates = this.route.snapshot.paramMap.get("dates").split(",");
@@ -36,6 +39,14 @@ export class ResultPage implements OnInit {
 
   ngOnInit() {    
   }
+  
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ViewerRoomPage,
+      componentProps: { value: 123 }
+    });
+    return await modal.present();
+  }  
 
   getRoom() {
 
