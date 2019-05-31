@@ -40,12 +40,19 @@ export class ResultPage implements OnInit {
   ngOnInit() {    
   }
   
-  async presentModal() {
+  async presentModal(item) {
     const modal = await this.modalController.create({
       component: ViewerRoomPage,
-      componentProps: { value: 123 }
+      componentProps: { room: item }
     });
-    return await modal.present();
+
+    modal.onDidDismiss()
+      .then((data) => {
+        const room = data['data'];
+        this.presentAlertConfirm(room)
+    });
+    
+    return await modal.present();      
   }  
 
   getRoom() {
@@ -123,9 +130,6 @@ export class ResultPage implements OnInit {
         room.set("intervalsRev", this.getIntervalsRev(room));
         room.save().then((roomUpdate) => {
           console.log(roomUpdate);
-
-          // Send Email
-          //this.sendEmail();
           this.presentAlert(room)
           this.router.navigateByUrl('/tabs');
         }, err => {
@@ -201,9 +205,6 @@ export class ResultPage implements OnInit {
     return show;
   }
 
-  sendEmail(){
-
-  }
   async presentAlert(room) {
     const alert = await this.alertController.create({
       header: 'Reversa da Sala',

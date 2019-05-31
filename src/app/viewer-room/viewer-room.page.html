@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Sala</ion-title>
+    <ion-title>{{room.attributes.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  {{value}}
+  <ion-card>
+    <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>
+    <ion-card-header>
+      <ion-card-title>{{room.attributes.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Área <b>{{room.attributes.area}}</b></p>
+      <p>Dimensões <b>{{room.attributes.dimension}}</b></p>
+      <p>{{room.attributes.description}}</p>      
+    </ion-card-content>
+    <ion-button fill="solid" expand="full" color="success" (click)="reserve(room)">Reservar</ion-button>
+  </ion-card>
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-viewer-room',
@@ -7,11 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ViewerRoomPage implements OnInit {
 
-  @Input() value: number;
+  @Input() room: any;
 
-  constructor() { }
+  constructor(public alertController: AlertController,public modalCtrl: ModalController) { }
 
   ngOnInit() {
+  }
+
+  reserve(room){
+    this.modalCtrl.dismiss(room);
   }
 
 }
