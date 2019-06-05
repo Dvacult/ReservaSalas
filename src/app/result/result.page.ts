@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ViewerRoomPage } from '../viewer-room/viewer-room.page';
 
 @Component({
   selector: 'app-result',
@@ -25,7 +27,8 @@ export class ResultPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public loadingController: LoadingController,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    public modalController: ModalController) {
     
     this.presentLoading();
     this.dates = this.route.snapshot.paramMap.get("dates").split(",");
@@ -36,6 +39,21 @@ export class ResultPage implements OnInit {
 
   ngOnInit() {    
   }
+  
+  async presentModal(item) {
+    const modal = await this.modalController.create({
+      component: ViewerRoomPage,
+      componentProps: { room: item }
+    });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        const room = data['data'];
+        this.presentAlertConfirm(room)
+    });
+    
+    return await modal.present();      
+  }  
 
   getRoom() {
 
@@ -112,9 +130,6 @@ export class ResultPage implements OnInit {
         room.set("intervalsRev", this.getIntervalsRev(room));
         room.save().then((roomUpdate) => {
           console.log(roomUpdate);
-
-          // Send Email
-          //this.sendEmail();
           this.presentAlert(room)
           this.router.navigateByUrl('/tabs');
         }, err => {
@@ -190,9 +205,6 @@ export class ResultPage implements OnInit {
     return show;
   }
 
-  sendEmail(){
-
-  }
   async presentAlert(room) {
     const alert = await this.alertController.create({
       header: 'Reversa da Sala',

@@ -44,9 +44,9 @@
 
       <ion-item-sliding *ngFor="let item of rooms, let i = index">
        
-        <ion-item>
+        <ion-item (click)="presentModal(item)">
           <ion-thumbnail slot="start">
-            <img src="../../assets/imgs/R{{i}}.jpg" class="img-room"/>
+            <img src="../../assets/imgs/{{item.attributes.imgID}}.jpg" class="img-room"/>
           </ion-thumbnail> 
           <ion-label>           
               <h1>{{item.attributes.name}}</h1>
