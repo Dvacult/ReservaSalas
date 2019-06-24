@@ -15,7 +15,6 @@ export class Tab3Page {
 
   constructor(private storage: Storage, private router: Router){
     this.storage.get('user_attr').then((user_attr) => {
-      debugger;
         this.login = user_attr.username;
         this.setor = user_attr.setor;
         this.email = user_attr.email;

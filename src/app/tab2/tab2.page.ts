@@ -17,7 +17,8 @@ export class Tab2Page {
     this.getMyReverves();
   }
   
-  ionViewDidLoad() {  
+  ngOnInit() { 
+    debugger; 
     this.getMyReverves();  
   }
 
@@ -49,7 +50,7 @@ export class Tab2Page {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-    }, 2000);
+    }, 1000);
   }
 
   getUser(userId){
@@ -75,12 +76,12 @@ export class Tab2Page {
       room.set("datesRev", this.getDatesRev(room, dates));
       room.set("intervalsRev", this.getIntervalsRev(room, interval));
       room.save().then((roomUpdate) => {
-        console.log(roomUpdate);
+        console.log(roomUpdate);        
       }, err => {
         console.log('Error Room in', err);
       });
 
-      this.rooms = results;
+      this.getMyReverves(); 
     }, err => {
       console.log('Error logging in', err);
     });
