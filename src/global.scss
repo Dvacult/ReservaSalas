@@ -9,3 +9,9 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.my-modal .modal-wrapper {
+    display: block;
+    width: 60% !important;
+    height: 90% !important;
+  }

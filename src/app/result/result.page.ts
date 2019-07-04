@@ -43,7 +43,8 @@ export class ResultPage implements OnInit {
   async presentModal(item) {
     const modal = await this.modalController.create({
       component: ViewerRoomPage,
-      componentProps: { room: item }
+      componentProps: { room: item },
+      cssClass:"my-modal"
     });
 
     modal.onDidDismiss()

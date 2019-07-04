@@ -18,7 +18,6 @@ export class Tab2Page {
   }
   
   ngOnInit() { 
-    debugger; 
     this.getMyReverves();  
   }
 

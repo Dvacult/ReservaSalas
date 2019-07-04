@@ -5,12 +5,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>
-    <ion-card-header>
-      <ion-card-title>{{room.attributes.name}}</ion-card-title>
-    </ion-card-header>
-  
+  <ion-card class="details">
+  <ion-slides>
+
+      <ion-slide>
+        <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>  
+      </ion-slide>
+
+      <ion-slide>
+        <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>  
+      </ion-slide>
+
+    </ion-slides>     
     <ion-card-content>
       <p>Área <b>{{room.attributes.area}}</b></p>
       <p>Dimensões <b>{{room.attributes.dimension}}</b></p>

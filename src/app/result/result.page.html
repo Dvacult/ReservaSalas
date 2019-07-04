@@ -44,7 +44,7 @@
 
       <ion-item-sliding *ngFor="let item of rooms, let i = index">
        
-        <ion-item (click)="presentModal(item)">
+        <ion-item>
           <ion-thumbnail slot="start">
             <img src="../../assets/imgs/{{item.attributes.imgID}}.jpg" class="img-room"/>
           </ion-thumbnail> 
@@ -55,6 +55,7 @@
               </p>
           </ion-label>
           <ion-button fill="solid" slot="end" color="success" (click)="presentAlertConfirm(item)">Reservar</ion-button>
+          <ion-button fill="solid" slot="end" (click)="presentModal(item)">Detalhes</ion-button>
         </ion-item>
         
       </ion-item-sliding>
