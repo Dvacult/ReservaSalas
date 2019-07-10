@@ -6,8 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-  
-  myReserve($event){
-    console.log("Minhas reservas selecionado");
-  }
 }
