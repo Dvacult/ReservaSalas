@@ -6,22 +6,16 @@
 
 <ion-content>
   <ion-card class="details">
-  <ion-slides>
-
-      <ion-slide>
-        <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>  
-      </ion-slide>
-
-      <ion-slide>
-        <img src="../../assets/imgs/{{room.attributes.imgID}}.jpg"/>  
-      </ion-slide>
-
-    </ion-slides>     
     <ion-card-content>
       <p>Área <b>{{room.attributes.area}}</b></p>
       <p>Dimensões <b>{{room.attributes.dimension}}</b></p>
       <p>{{room.attributes.description}}</p>      
     </ion-card-content>
     <ion-button fill="solid" expand="full" color="success" (click)="reserve(room)">Reservar</ion-button>
-  </ion-card>
+    <ion-slides>
+        <ion-slide *ngFor="let item of slides, let i = index">
+          <img src="../../assets/imgs/{{room.attributes.imgID}}/{{item}}.jpg"/>  
+        </ion-slide>
+      </ion-slides>
+  </ion-card> 
 </ion-content>

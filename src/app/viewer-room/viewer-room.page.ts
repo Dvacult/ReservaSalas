@@ -10,10 +10,12 @@ import { ModalController } from '@ionic/angular';
 export class ViewerRoomPage implements OnInit {
 
   @Input() room: any;
+  slides: any[] = [];
 
   constructor(public alertController: AlertController,public modalCtrl: ModalController) { }
 
   ngOnInit() {
+    this.slides = this.room.attributes.slidesID
   }
 
   reserve(room){
