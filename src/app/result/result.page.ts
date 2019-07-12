@@ -70,15 +70,31 @@ export class ResultPage implements OnInit {
       { 
         if(results[i].attributes.datesRev != undefined)
         {
-          let dates = results[i].attributes.datesRev;          
+          let dates = results[i].attributes.datesRev;
+          let intervals = results[i].attributes.intervalsRev;          
           if(dates != undefined )
           {
             for(var j = 0; j < dates.length; j++)
             {
               let dateRev = dates[j];
               for(var w = 0; w < this.dates.length; w++)
+              {
                 if(dateRev == this.dates[w])
-                  range.push(results[i]);                
+                {
+                  if(intervals != undefined )
+                  {
+                    for(var z = 0; z < intervals.length; z++)
+                    {
+                      let intervalRev = intervals[z];
+                      for(var s = 0; s < this.intervals.length; s++)
+                      {
+                        if(intervalRev == this.intervals[s])
+                          range.push(results[i]);
+                      }
+                    }
+                  }
+                }
+              }
             }                
           } 
         }
