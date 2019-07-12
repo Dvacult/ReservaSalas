@@ -6,16 +6,29 @@
 
 <ion-content>
   <ion-card class="details">
+    
     <ion-card-content>
       <p>Área <b>{{room.attributes.area}}</b></p>
       <p>Dimensões <b>{{room.attributes.dimension}}</b></p>
       <p>{{room.attributes.description}}</p>      
     </ion-card-content>
+    
     <ion-button fill="solid" expand="full" color="success" (click)="reserve(room)">Reservar</ion-button>
-    <ion-slides>
-        <ion-slide *ngFor="let item of slides, let i = index">
+    
+    <ion-slides #slides pager="true" autoplay="true" [options]="slideOpts">
+        <ion-slide *ngFor="let item of images, let i = index">
           <img src="../../assets/imgs/{{room.attributes.imgID}}/{{item}}.jpg"/>  
         </ion-slide>
-      </ion-slides>
+        <ion-fab vertical="center" horizontal="start" slot="fixed">
+          <ion-fab-button (click)="prevSlide()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab vertical="center" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="nextSlide()">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+    </ion-slides>
   </ion-card> 
 </ion-content>

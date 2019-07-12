@@ -3,13 +3,15 @@
     <ion-title>
         Buscar por Salas
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="clearCalendar()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>       
+<ion-content>      
   <ion-item-divider>
       <ion-label>
         Data da reserva

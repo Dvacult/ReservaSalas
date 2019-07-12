@@ -23,4 +23,6 @@ const routes: Routes = [
   ],
   declarations: [ViewerRoomPage]
 })
-export class ViewerRoomPageModule {}
+
+export class ViewerRoomPageModule {
+}
