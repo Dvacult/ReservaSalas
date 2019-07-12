@@ -19,6 +19,7 @@ export class ResultPage implements OnInit {
   rooms: any[] = [];
   dates: any[] = [];
   intervals: any[] = [];
+  hours: String;
 
   loading: any;
   
@@ -33,7 +34,7 @@ export class ResultPage implements OnInit {
     this.presentLoading();
     this.dates = this.route.snapshot.paramMap.get("dates").split(",");
     this.intervals = this.route.snapshot.paramMap.get("intervals").split(",");
-
+    this.parseInterval();
     this.getRoom();
   }
 
@@ -246,7 +247,7 @@ export class ResultPage implements OnInit {
           }
         }, {
           text: 'Reserve',
-          cssClass: 'primary',
+          cssClass: 'danger',
           handler: () => {
             console.log('Confirm Okay');
             this.setReserve(room);
@@ -256,5 +257,38 @@ export class ResultPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  parseInterval(){
+    let hours = [];
+    debugger;
+    for(var i = 0; i < this.intervals.length; i++)
+    {
+      switch(this.intervals[i]){
+        case "0":
+          this.hours = "8:00 às 22:00";
+          break;
+        case "1":
+            hours.push("8:00 às 10:00");
+            break;
+        case "2":
+            hours.push("10:30 às 12:30");
+            break;
+        case "3":
+            hours.push("13:00 às 14:00");
+            break;
+        case "4":
+            hours.push("14:30 às 16:30");
+            break;
+        case "5":
+            hours.push("17:00 às 19:00");
+            break;
+        case "6":
+            hours.push("19:30 às 21:30");
+            break;
+      }    
+    }
+
+    this.hours = hours.toString();
   }
 }

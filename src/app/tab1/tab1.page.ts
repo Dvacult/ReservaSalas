@@ -100,7 +100,6 @@ export class Tab1Page {
 
   clearCalendar()
   {
-    debugger;
     this.dates = [];
     this.intervals = [];
     this.clearSearch();
